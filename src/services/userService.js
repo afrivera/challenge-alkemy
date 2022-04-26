@@ -10,8 +10,8 @@ const findById = async ( id )=> {
     return await userRepository.findById( id );
 }
 
-const findByEmail = async ( id )=> {
-    return await userRepository.findById( id );
+const findByEmail = async ( email )=> {
+    return await userRepository.findByEmail( email );
 }
 
 const save = async ( user )=> {

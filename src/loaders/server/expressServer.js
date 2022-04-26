@@ -15,6 +15,7 @@ class ExpressServer {
         this.port = config.port;
         this.pathRoutes = {
             users: `${config.api.prefix}/users`,
+            auth: `${config.api.prefix}/auth`,
         }
 
 
@@ -37,6 +38,7 @@ class ExpressServer {
 
     _routes(){
         this.app.use(this.pathRoutes.users, require('../../routes/users'));
+        this.app.use(this.pathRoutes.auth, require('../../routes/auth'));
     }
 
     _notFound(){
