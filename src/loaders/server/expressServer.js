@@ -13,9 +13,14 @@ class ExpressServer {
     constructor(){
         this.app = express();
         this.port = config.port;
+        this.pathRoutes = {
+            users: `${config.api.prefix}/users`,
+        }
 
 
         this._middlewares();
+
+        this._routes();
 
 
         // bad request or route doesn't exist
@@ -28,6 +33,10 @@ class ExpressServer {
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(morgan('tiny'));
+    }
+
+    _routes(){
+        this.app.use(this.pathRoutes.users, require('../../routes/users'));
     }
 
     _notFound(){
@@ -64,7 +73,7 @@ class ExpressServer {
     async start(){
         this.app.listen(this.port, (error) =>{
             if( error ){
-                console.log(error);
+                logger.error(error);
                 process.exit(1);
                 return
             }
