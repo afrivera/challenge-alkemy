@@ -76,9 +76,7 @@ class ExpressServer {
                 logger.error(error);
                 process.exit(1);
                 return
-            }
-
-            logger.info(`Server listening on port: ${this.port}`);
+            }            
         } );
     }
 
