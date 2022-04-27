@@ -38,6 +38,21 @@ const login = async ( email, password )=> {
     }
 }
 
+const register = async( user )=> {
+    try {
+        // validate if email exist
+        const userFound = await userService.findByEmail( user.email);
+        if( userFound){
+            throw new AppError('Email already exist', 401);
+        }
+        await userService.save( user );
+        return 'User registered, you can log In to use API';
+        
+    } catch (error) {
+        throw error;
+    }
+
+}
 
 const _token = id => {
     return new Promise((resolve, reject)=> {
@@ -55,5 +70,6 @@ const _token = id => {
 
 
 module.exports = {
-    login
+    login,
+    register
 };
