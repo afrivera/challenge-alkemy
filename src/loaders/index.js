@@ -10,6 +10,7 @@ const startServer = async()=> {
         await db.authenticate();
         require('../models/user');
         require('../models/character');
+        require('../models/movie');
 
         db.sync({ alter: true });
         logger.info('Database loaded and connected');

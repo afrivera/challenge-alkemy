@@ -17,6 +17,7 @@ class ExpressServer {
             users: `${config.api.prefix}/users`,
             auth: `${config.api.prefix}/auth`,
             characters: `${config.api.prefix}/characters`,
+            movies: `${config.api.prefix}/movies`,
         }
 
 
@@ -41,6 +42,7 @@ class ExpressServer {
         this.app.use(this.pathRoutes.users, require('../../routes/users'));
         this.app.use(this.pathRoutes.auth, require('../../routes/auth'));
         this.app.use(this.pathRoutes.characters, require('../../routes/characters'));
+        this.app.use(this.pathRoutes.movies, require('../../routes/movies'));
     }
 
     _notFound(){
