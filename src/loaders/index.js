@@ -8,8 +8,10 @@ const startServer = async()=> {
     try {
 
         await db.authenticate();
-        require('../models/users');
-        db.sync({ alter: false });
+        require('../models/user');
+        require('../models/character');
+
+        db.sync({ alter: true });
         logger.info('Database loaded and connected');
 
 
