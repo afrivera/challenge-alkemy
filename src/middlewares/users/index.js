@@ -8,7 +8,7 @@ const AppError = require('../../errors/AppError');
 const _emailExist = check('email').custom(
     async (email= '') => {
         const userFound = await userService.findByEmail( email );
-        if( !userFound ){
+        if( userFound ){
             throw new AppError('Email already exist in DB', 400, email);
         }
     }

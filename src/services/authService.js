@@ -69,7 +69,7 @@ const validToken = async ( token )=> {
         const user = await userService.findById( id );
 
         if( !user ){
-            throw new AppError('Authentication failed! user doesn\'t exist');
+            throw new AppError('Authentication failed! user doesn\'t exist', 400);
         }
 
         if( !user.enable){

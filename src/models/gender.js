@@ -22,3 +22,8 @@ const Gender = db.define('genders', {
 })
 
 module.exports = Gender;
+
+Gender.hasMany(require('./movie'), {
+    foreignKey: 'genderId',
+    sourceKey: 'id'
+})

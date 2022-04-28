@@ -5,7 +5,9 @@ const Success = require('../handlers/successHandler');
 
 const getAllMovies = async (req, res, next) =>{
     try {
-        const movies = await movieService.findall();
+        const { filter= ''} = req.query;
+
+        const movies = await movieService.findall( filter );
         res.json( new Success( movies ) );
          
     } catch (error) {
@@ -16,8 +18,8 @@ const getAllMovies = async (req, res, next) =>{
 const createMovie = async(req= request, res= response, next)=> {
 
     try {
-        const { title, image, creationDate, calification  } = req.body;
-        let movie = { title, image, creationDate, calification };
+        const { title, image, creationDate, calification, genderId, contentType  } = req.body;
+        let movie = { title, image, creationDate, calification, genderId, contentType };
 
         movie = await movieService.save( movie );
         res.status(201).json( new Success( movie ) );

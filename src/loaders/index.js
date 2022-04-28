@@ -11,8 +11,9 @@ const startServer = async()=> {
         require('../models/user');
         require('../models/character');
         require('../models/movie');
+        require('../models/gender');
 
-        db.sync({ alter: true });
+        await db.sync({ alter: true });
         logger.info('Database loaded and connected');
 
 

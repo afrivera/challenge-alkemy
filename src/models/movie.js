@@ -6,6 +6,7 @@ const Movie = db.define('movies', {
     title: {
         type: DataTypes.STRING(50),
         allowNull: false,
+        unique: true
     },
     image: {
         type: DataTypes.STRING(100),
@@ -30,10 +31,16 @@ const Movie = db.define('movies', {
 },{
     indexes: [
         {
-            unique: true,
-            fields: ['title', 'contentType' ]
+            allowNull: false,
+            fields: ['title', 'contentType', 'genderId' ]
         }
     ]
 })
 
 module.exports = Movie;
+
+Movie.belongsTo(require('./gender'), {
+    foreignKey: 'genderId',
+    targetKey: 'id',
+    allowNull: false
+})

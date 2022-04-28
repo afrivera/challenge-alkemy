@@ -2,8 +2,8 @@ const MovieRepository = require("../repositories/movieRepository");
 
 const movieRepository = new MovieRepository();
 
-const findall = async ()=> {
-    return await movieRepository.findAll();
+const findall = async ( filter )=> {
+    return await movieRepository.findAll( filter );
 }
 
 const findById = async ( id )=> {
@@ -15,6 +15,9 @@ const findByTitle = async ( title )=> {
 }
 
 const save = async ( movie )=> {
+    // const gender = await genderService.findByName( movie.gender);
+    // movie.genderId = gender.id;
+
     return await movieRepository.save( movie );
 }
 
