@@ -31,5 +31,5 @@ const register = async (req = request, res = response, next)=> {
 
 module.exports = {
     login,
-    register
+    register,
 };

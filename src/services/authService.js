@@ -1,9 +1,8 @@
 const bcript = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
-const config = require('../config');
 const AppError = require('../errors/AppError');
 const userService = require('./userService');
+const { generateJWT, validateJWT } = require('../helpers/jwt-validations')
 
 const login = async ( email, password )=> {
     try {
@@ -25,7 +24,7 @@ const login = async ( email, password )=> {
         }
 
         // generate jwToken
-        const token = await _token( user.id )
+        const token = await generateJWT( user.id )
 
         return { 
             token,
@@ -54,22 +53,45 @@ const register = async( user )=> {
 
 }
 
-const _token = id => {
-    return new Promise((resolve, reject)=> {
-        jwt.sign({ id }, config.jwt.secret, {
-            expiresIn: config.jwt.ttl
-        }, (err, token)=> {
-            if( err ){
-                reject( 'couldn\'t generate jwt');
-            }else {
-                resolve( token );
-            }
-        })
-    })
+const validToken = async ( token )=> {
+    
+    try {
+        // valid if there is a token
+        if( !token ){
+            throw new AppError('Authentication failed! Token required', 401)
+        }
+    
+        // valid if token is valid
+        const { data : id} = validateJWT( token );
+        console.log(id);
+        
+        // validate if user with id exist
+        const user = await userService.findById( id );
+
+        if( !user ){
+            throw new AppError('Authentication failed! user doesn\'t exist');
+        }
+
+        if( !user.enable){
+            throw new AppError('Authentication failed! user disable', 401);
+        }
+
+        return user;
+
+    } catch (error) {
+        throw error;
+    }
+
+
+
+
 }
+
+
 
 
 module.exports = {
     login,
-    register
+    register,
+    validToken
 };

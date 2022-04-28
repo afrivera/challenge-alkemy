@@ -24,6 +24,12 @@ const Character = db.define('characters', {
         allowNull: false
     }
 },{
+    indexes:[
+        {
+            unique: true,
+            fields: ['name', 'age', 'weight']
+        }
+    ]
 })
 
 module.exports = Character;

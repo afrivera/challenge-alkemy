@@ -4,7 +4,6 @@ const { validResult, valueRequired } = require('../common');
 
 const _emailValid = check('email', 'Email is invalid').isEmail();
 
-
 const postLoginRequestValidations = [
     valueRequired('email'),
     valueRequired('password'),
@@ -23,5 +22,5 @@ const postRegisterRequestValidations = [
 
 module.exports = {
     postLoginRequestValidations,
-    postRegisterRequestValidations
+    postRegisterRequestValidations,
 };

@@ -1,7 +1,7 @@
 const { check } = require('express-validator');
 
 const characterService = require('../../services/characterService');
-const { validResult, valueRequired} = require('../common');
+const { validResult, valueRequired, validJWT} = require('../common');
 const AppError = require('../../errors/AppError');
 
 // Validations
@@ -28,11 +28,11 @@ const _characterExist = check('id').custom(
 
 
 const getAllRequestValidations = [
-
+    validJWT
 ]
 
 const getRequestValidations = [
-
+    validJWT
 ]
 
 const postRequestValidations = [
@@ -40,20 +40,22 @@ const postRequestValidations = [
     valueRequired('age'),
     valueRequired('history'),
     _nameExist,
-    validResult
+    validResult,
+    validJWT
 ]
 
 const putRequestValidations = [
     valueRequired('id'),
     _characterExist,
-    validResult
-
+    validResult,
+    validJWT
 ]
 
 const deleteRequestValidations = [
     valueRequired('id'),
     _characterExist,
-    validResult
+    validResult,
+    validJWT
 ]
 
 
