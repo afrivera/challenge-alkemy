@@ -3,9 +3,10 @@ const { response, request } = require('express');
 const characterService = require('../services/characterService');
 const Success = require('../handlers/successHandler');
 
-const getAllCharacters = async (req, res, next) =>{
+const getAllCharacters = async (req= request, res=response, next) =>{
     try {
-        const characters = await characterService.findall();
+        const { name = '', age = '', movies = '' } = req.query;
+        const characters = await characterService.findall( name, age, movies );
         res.json( new Success( characters ) );
          
     } catch (error) {

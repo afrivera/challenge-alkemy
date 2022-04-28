@@ -21,7 +21,6 @@ const _characterExist = check('id').custom(
         if( !characterFound ){
             throw new AppError(`Character with id: ${id} doesn't exist`);
         }
-        console.log(characterFound);
         req.character = characterFound;
     }
 )

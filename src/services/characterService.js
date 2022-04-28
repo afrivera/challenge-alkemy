@@ -2,8 +2,8 @@ const CharacterRepository = require("../repositories/characterRepository");
 
 const characterRepository = new CharacterRepository();
 
-const findall = async ()=> {
-    return await characterRepository.findAll();
+const findall = async ( name, age, movies )=> {
+    return await characterRepository.findAll( name, age, movies );
 }
 
 const findById = async ( id )=> {

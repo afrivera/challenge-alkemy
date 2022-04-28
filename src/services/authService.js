@@ -63,7 +63,6 @@ const validToken = async ( token )=> {
     
         // valid if token is valid
         const { data : id} = validateJWT( token );
-        console.log(id);
         
         // validate if user with id exist
         const user = await userService.findById( id );
