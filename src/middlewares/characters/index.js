@@ -1,29 +1,14 @@
 const { check } = require('express-validator');
 
-const characterService = require('../../services/characterService');
 const { validResult, valueRequired, validJWT} = require('../common');
-const AppError = require('../../errors/AppError');
+const { nameCharacterExist, characterExist, movieExist } = require('../../helpers/db-validations');
 
 // Validations
-const _nameExist = check('name').custom(
-    async (name= '') => {
-        const characterFound = await characterService.findByName( name );
-        if( characterFound ){
-            throw new AppError(`character already exist with id: ${characterFound.id}`, 400);
-        }
-    }
-)
+const _nameExist = check('name').custom( nameCharacterExist )
 
-const _characterExist = check('id').custom(
-    async( id = '', { req })=> {
-        const characterFound = await characterService.findById( id );
-
-        if( !characterFound ){
-            throw new AppError(`Character with id: ${id} doesn't exist`);
-        }
-        req.character = characterFound;
-    }
-)
+const _characterExist = check('id').custom( characterExist )
+const _characterExistAss = check('idCharacter').custom( characterExist )
+const _movieExist = check('idMovie').custom( movieExist);
 
 
 const getAllRequestValidations = [
@@ -31,7 +16,10 @@ const getAllRequestValidations = [
 ]
 
 const getRequestValidations = [
-    validJWT
+    validJWT,
+    valueRequired('id'),
+    _characterExist,
+    validResult
 ]
 
 const postRequestValidations = [
@@ -57,11 +45,20 @@ const deleteRequestValidations = [
     validJWT
 ]
 
+const associateRequestValidation = [
+    validJWT,
+    valueRequired('idCharacter'),
+    valueRequired('idMovie'),
+    _characterExistAss,
+    _movieExist,
+    validResult
+]
 
 module.exports = {
     getAllRequestValidations,
     getRequestValidations,
     postRequestValidations,
     putRequestValidations,
-    deleteRequestValidations
+    deleteRequestValidations,
+    associateRequestValidation
 };

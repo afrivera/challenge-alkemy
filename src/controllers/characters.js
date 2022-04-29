@@ -14,6 +14,17 @@ const getAllCharacters = async (req= request, res=response, next) =>{
     }
 }
 
+const getByIdWithMovies = async (req= request, res=response, next) =>{
+    try {
+        const { id } = req.params;
+        const characters = await characterService.findByIdWithMovies( id );
+        res.json( new Success( characters ) );
+         
+    } catch (error) {
+        next( error );
+    }
+}
+
 const createCharacter = async(req= request, res= response, next)=> {
 
     try {
@@ -59,10 +70,23 @@ const deleteCharacter = async(req= request, res= response, next)=> {
 
 }
 
+const associateMovie = async( req= request, res = response, next) => {
+    try {
+        const { movie, character } = req;
+
+        await characterService.associate( character, movie );
+        res.json( new Success( {message: 'character associated with movie'}));
+        
+    } catch (error) {
+        next( error );
+    }
+}
 
 module.exports = {
     getAllCharacters,
+    getByIdWithMovies,
     createCharacter,
     updateCharacter,
-    deleteCharacter
+    deleteCharacter,
+    associateMovie
 };

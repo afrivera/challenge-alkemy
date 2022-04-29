@@ -33,3 +33,8 @@ const Character = db.define('characters', {
 })
 
 module.exports = Character;
+
+Character.belongsToMany(require('./movie'), {
+    through: 'charactersMovies',
+    foreignKey: 'characterId'
+});

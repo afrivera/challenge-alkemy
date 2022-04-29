@@ -43,4 +43,9 @@ Movie.belongsTo(require('./gender'), {
     foreignKey: 'genderId',
     targetKey: 'id',
     allowNull: false
+});
+
+Movie.belongsToMany(require('./character'), {
+    through: 'charactersMovies',
+    foreignKey: 'movieId'
 })

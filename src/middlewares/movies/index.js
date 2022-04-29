@@ -1,22 +1,12 @@
 const { check } = require('express-validator');
 
-const movieService = require('../../services/movieService');
 const genderService = require('../../services/genderService');
 const { validResult, valueRequired, validJWT} = require('../common');
 const AppError = require('../../errors/AppError');
+const { titleMovieExist, movieExist } = require('../../helpers/db-validations');
 
 // Validations
-const _titleExist = check('title').custom(
-    async (title= '') => {
-        if( title.trim()=== ''){
-            return;
-        }
-        const movieFound = await movieService.findByTitle( title );
-        if( movieFound ){
-            throw new AppError(`Movie already exist with id: ${movieFound.id}`, 400);
-        }
-    }
-)
+const _titleExist = check('title').custom( titleMovieExist )
 
 const _genderExist = check('gender').custom(
     async (gender='', { req })=> {
@@ -31,16 +21,7 @@ const _genderExist = check('gender').custom(
     }
 )
 
-const _movieExist = check('id').custom(
-    async( id = '', { req })=> {
-        const movieFound = await movieService.findById( id );
-
-        if( !movieFound ){
-            throw new AppError(`movie with id: ${id} doesn't exist`);
-        }
-        req.movie = movieFound;
-    }
-)
+const _movieExist = check('id').custom( movieExist )
 
 
 const getAllRequestValidations = [
