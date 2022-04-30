@@ -10,6 +10,10 @@ const findById = async ( id )=> {
     return await movieRepository.findById( id );
 }
 
+const findByIdWithCharacters = async( id )=> {
+    return await movieRepository.findByIdWithCharacters( id );
+}
+
 const findByTitle = async ( title )=> {
     return await movieRepository.findByTitle( title );
 }
@@ -29,11 +33,23 @@ const remove = async ( id )=> {
     return await movieRepository.remove( { where: { id }} );
 }
 
+const associate = async( movie, character )=> {
+    await movie.addCharacter( character );
+}
+
+// this function is to remove association with characters
+const removeAssociate = async( movie, character )=> {
+    await movie.removeCharacter( character );
+}
+
 module.exports = {
     findall,
     findById,
+    findByIdWithCharacters,
     findByTitle,
     save,
     update,
-    remove
+    remove,
+    associate,
+    removeAssociate
 };

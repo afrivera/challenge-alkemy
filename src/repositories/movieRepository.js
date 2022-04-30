@@ -1,6 +1,7 @@
 const Movie = require('../models/movie');
 const Gender = require('../models/gender');
 const { Op } = require('sequelize');
+const Character = require('../models/character');
 
 
 class MovieRepository {
@@ -28,6 +29,23 @@ class MovieRepository {
 
     async findById( id ){
         return await Movie.findByPk( id );
+    }
+
+    async findByIdWithCharacters(id){
+        return await Movie.findByPk( id, {
+            include: [
+                {
+                    model: Character,
+                    through: { attributes:['movieId']},
+                },
+                {
+                    model: Gender,
+                    attributes:['name']
+                }
+            ],
+            attributes: {exclude: ['genderId']}
+            
+        })
     }
 
     async findByTitle( title ){

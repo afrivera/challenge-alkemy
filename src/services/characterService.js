@@ -34,6 +34,11 @@ const associate = async (character, movie)=> {
     await character.addMovie( movie );
 }
 
+// this function is to remove associations with movies
+const removeAssociate = async (character, movie)=> {
+    await character.removeMovie( movie );
+}
+
 module.exports = {
     findall,
     findById,
@@ -42,5 +47,6 @@ module.exports = {
     save,
     update,
     remove,
-    associate
+    associate,
+    removeAssociate
 };

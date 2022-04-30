@@ -15,6 +15,18 @@ const getAllMovies = async (req, res, next) =>{
     }
 }
 
+const getByIdWithCharacters = async (req, res, next) =>{
+    try {
+        const { id } = req.params;
+
+        const movie = await movieService.findByIdWithCharacters( id );
+        res.json( new Success( movie ) );
+         
+    } catch (error) {
+        next( error );
+    }
+}
+
 const createMovie = async(req= request, res= response, next)=> {
 
     try {
@@ -60,10 +72,22 @@ const deleteMovie = async(req= request, res= response, next)=> {
 
 }
 
+const associateCharacter = async( req = request, res = response, next)=>{
+    try {
+        const { movie, character } = req;
+        await movieService.associate( movie, character );
+        res.json(new Success({ message: 'movie associated with character'}))
+    } catch (error) {
+        next( error );
+    }
+}
+
 
 module.exports = {
     getAllMovies,
+    getByIdWithCharacters,
     createMovie,
     updateMovie,
-    deleteMovie
+    deleteMovie,
+    associateCharacter
 };
