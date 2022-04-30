@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const {
     getAllMovies,
+    getMovieById,
     createMovie,
     updateMovie,
     deleteMovie,
@@ -19,6 +20,7 @@ const {
 const router = Router();
 
 router.get('/', getAllRequestValidations, getAllMovies);
+router.get('/:id', getRequestValidations, getMovieById);
 router.post('/', postRequestValidations, createMovie);
 router.put('/:id', putRequestValidations, updateMovie);
 router.delete('/:id(\\d+)', deleteRequestValidations, deleteMovie);

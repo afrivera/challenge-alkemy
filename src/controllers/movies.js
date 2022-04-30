@@ -15,6 +15,15 @@ const getAllMovies = async (req, res, next) =>{
     }
 }
 
+const getMovieById = async( req = request, res = response, next )=> {
+    try {
+        res.json( new Success( req.movie));
+        
+    } catch (error) {
+        next( error );
+    }
+}
+
 const getByIdWithCharacters = async (req, res, next) =>{
     try {
         const { id } = req.params;
@@ -85,6 +94,7 @@ const associateCharacter = async( req = request, res = response, next)=>{
 
 module.exports = {
     getAllMovies,
+    getMovieById,
     getByIdWithCharacters,
     createMovie,
     updateMovie,

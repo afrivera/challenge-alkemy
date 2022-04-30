@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const {
     getAllCharacters,
+    getCharacterById,
     createCharacter,
     updateCharacter,
     deleteCharacter,
@@ -19,6 +20,7 @@ const {
 const router = Router();
 
 router.get('/', getAllRequestValidations, getAllCharacters);
+router.get('/:id', getRequestValidations, getCharacterById);
 router.post('/', postRequestValidations, createCharacter);
 router.put('/:id', putRequestValidations, updateCharacter);
 router.delete('/:id(\\d+)', deleteRequestValidations, deleteCharacter);

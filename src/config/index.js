@@ -27,6 +27,9 @@ module.exports = {
     jwt:{
         secret: process.env.JWT_SECRET,
         ttl: process.env.JWT_TTL
+    },
+    swagger:{
+        path:'/documentation'
     }
 };
 

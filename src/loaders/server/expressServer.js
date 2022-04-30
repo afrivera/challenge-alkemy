@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
 const path = require('path');
 
 const config = require('../../config');
@@ -22,7 +23,7 @@ class ExpressServer {
 
 
         this._middlewares();
-
+        this._swaggerConfig();
         this._routes();
 
 
@@ -75,6 +76,13 @@ class ExpressServer {
         });
     }
 
+    _swaggerConfig(){
+        this.app.use(
+            config.swagger.path,
+            swaggerUi.serve,
+            swaggerUi.setup(require('../swagger/swagger.json'))
+        )
+    }
 
     async start(){
         this.app.listen(this.port, (error) =>{

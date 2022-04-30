@@ -1,0 +1,16 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "alkemy-challenge",
+        "description": "This is an API to resolve alkemy's challenge",
+        "contact": {
+            "name": "Andres Felipe Rivera",
+            "email": "andresrfelip@hotmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    }
+}
