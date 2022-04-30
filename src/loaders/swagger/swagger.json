@@ -1,16 +1,924 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-        "title": "alkemy-challenge",
-        "description": "This is an API to resolve alkemy's challenge",
-        "contact": {
-            "name": "Andres Felipe Rivera",
-            "email": "andresrfelip@hotmail.com"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
-        "version": "1.0.0"
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Alkemy Challenge",
+    "description": "This is an API to resolve alkemy's challenge, about disney Movies.",
+    "contact": {
+      "name": "Andres Felipe Rivera",
+      "email": "andresrfelip@hotmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api/v1",
+      "description": "API LocalHost Develop"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/afrivera/Challenge-Movies/1.0.0",
+      "description": "API Production"
     }
+  ],
+  "security": [
+    {
+      "JWT": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "login",
+      "description": "you must be logged in before using the API"
+    },
+    {
+      "name": "characters",
+      "description": "characters operations"
+    },
+    {
+      "name": "movies",
+      "description": "movies operations"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "login"
+        ],
+        "description": "Service to log in an user to use API",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "log in valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/": {
+      "get": {
+        "tags": [
+          "characters"
+        ],
+        "description": "Service to get a Character",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "characterName"
+            }
+          },
+          {
+            "name": "age",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "int64",
+              "example": 45
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get a list of characters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "characters"
+        ],
+        "description": "Service to create a new Character. You should be an administrator User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/characters"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Character Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/characters"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/{id}": {
+      "get": {
+        "tags": [
+          "characters"
+        ],
+        "description": "Service to get a list of Character. You should be an administrator User",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the user you want to see.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get an object of character.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/characters"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "characters"
+        ],
+        "description": "Service to modify a Character.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the user you want to modify.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/characters"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "get an object of character.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "characters"
+        ],
+        "description": "Service to delete a Character.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the user you want to delete.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get an object of character.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "description": "Service to create a new Movie.",
+        "responses": {
+          "200": {
+            "description": "get a list of movies.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "movies"
+        ],
+        "description": "Service to create a new Movie.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/movies"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Movie Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "description": "Service to get a Movie by Id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the user you want to see.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get an object of movie.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/movies"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "movies"
+        ],
+        "description": "Service to modify a Movie.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the movie you want to modify.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/movies"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "get an object of movie.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_5"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "movies"
+        ],
+        "description": "Service to delete a Movie.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the movie you want to delete.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "number",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get an object of Movie.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_6"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "emailvalid@correo.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "passwordvalid"
+          }
+        }
+      },
+      "characters": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "image": {
+            "type": "string",
+            "example": "image about character"
+          },
+          "name": {
+            "type": "string",
+            "example": "name Character"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int64",
+            "example": 40
+          },
+          "history": {
+            "type": "string",
+            "example": "story about character"
+          },
+          "weight": {
+            "type": "number",
+            "format": "float",
+            "example": 70
+          }
+        }
+      },
+      "movies": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "image": {
+            "type": "string",
+            "example": "image about movie"
+          },
+          "title": {
+            "type": "string",
+            "example": "title of movie"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "calification": {
+            "type": "integer",
+            "description": "should be a number between 1 and 5",
+            "format": "int64",
+            "example": 4
+          },
+          "genre": {
+            "type": "string",
+            "example": "SERIES or MOVIES"
+          }
+        }
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/error_error"
+          }
+        }
+      },
+      "unauthorized": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/unauthorized_error"
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_data"
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/inline_response_200_1_data"
+            }
+          }
+        }
+      },
+      "inline_response_200_2": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_2_data"
+          }
+        }
+      },
+      "inline_response_200_3": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "type": "string",
+            "example": "character with id was removed"
+          }
+        }
+      },
+      "inline_response_200_4": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/movies"
+            }
+          }
+        }
+      },
+      "inline_response_201": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "$ref": "#/components/schemas/movies"
+          }
+        }
+      },
+      "inline_response_200_5": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_5_data"
+          }
+        }
+      },
+      "inline_response_200_6": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "$ref": "#/components/schemas/inline_response_200_6_data"
+          }
+        }
+      },
+      "error_error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "description about bad request"
+          }
+        },
+        "example": null
+      },
+      "unauthorized_error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "format": "int64",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "example": "Authenticacion failed! Token required"
+          }
+        },
+        "example": null
+      },
+      "inline_response_200_data": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "access-token"
+          },
+          "user": {
+            "type": "string",
+            "example": "userName"
+          },
+          "role": {
+            "type": "string",
+            "example": "USER_ROLE"
+          }
+        },
+        "example": null
+      },
+      "inline_response_200_1_data": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "example": "image about character"
+          },
+          "name": {
+            "type": "string",
+            "example": "character name"
+          }
+        },
+        "example": null
+      },
+      "inline_response_200_2_data": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "character wit id: ? was updated"
+          }
+        },
+        "example": null
+      },
+      "inline_response_200_5_data": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "movie with id ? was updated"
+          }
+        },
+        "example": null
+      },
+      "inline_response_200_6_data": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "movie with id ? was removed"
+          }
+        },
+        "example": null
+      }
+    },
+    "responses": {
+      "unauthorized": {
+        "description": "unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/unauthorized"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "type": "apiKey",
+        "name": "Authorization-token",
+        "in": "header"
+      }
+    }
+  }
 }
