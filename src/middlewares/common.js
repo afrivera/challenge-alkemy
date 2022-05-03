@@ -11,7 +11,7 @@ const validResult = (req, res, next)=> {
     next();
 }
 
-const valueRequired = value => check(value, `${ value } is required`).not().isEmpty();
+const valueRequired = value => check(value, `${ value } is required`).trim().not().isEmpty();
 
 const validJWT = async(req, res, next )=> {
     try {

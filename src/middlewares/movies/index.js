@@ -6,7 +6,7 @@ const AppError = require('../../errors/AppError');
 const { titleMovieExist, movieExist, characterExist } = require('../../helpers/db-validations');
 
 // Validations
-const _titleExist = check('title').custom( titleMovieExist )
+const _titleExist = check('title').trim().custom( titleMovieExist )
 
 const _genderExist = check('gender').custom(
     async (gender='', { req })=> {
@@ -21,9 +21,10 @@ const _genderExist = check('gender').custom(
     }
 )
 
-const _movieExist = check('id').custom( movieExist );
+const _movieExist = check('id', 'must be a number').isNumeric().custom( movieExist );
 const _movieExistAss = check('idMovie').custom( movieExist );
 const _characterExist = check('idCharacter').custom( characterExist );
+const _calificationValid = check('calification', 'calification value must be between 1 to 5').isFloat({min: 1, max: 5 });
 
 
 const getAllRequestValidations = [
@@ -38,6 +39,7 @@ const getRequestValidations = [
 ]
 
 const postRequestValidations = [
+    validJWT,
     valueRequired('title'),
     valueRequired('creationDate'),
     valueRequired('calification'),
@@ -45,22 +47,22 @@ const postRequestValidations = [
     valueRequired('contentType'),
     _genderExist,
     _titleExist,
+    _calificationValid,
     validResult,
-    validJWT
 ]
 
 const putRequestValidations = [
+    validJWT,
     valueRequired('id'),
     _movieExist,
     validResult,
-    validJWT
 ]
 
 const deleteRequestValidations = [
+    validJWT,
     valueRequired('id'),
     _movieExist,
     validResult,
-    validJWT
 ]
 
 const associateRequestValidation = [

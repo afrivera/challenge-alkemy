@@ -17,7 +17,7 @@ const Movie = db.define('movies', {
         allowNull: false
     },
     calification:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
             min: 1,

@@ -6,9 +6,10 @@ const { nameCharacterExist, characterExist, movieExist } = require('../../helper
 // Validations
 const _nameExist = check('name').custom( nameCharacterExist )
 
-const _characterExist = check('id').custom( characterExist )
+const _characterExist = check('id').isNumeric('must be a number').custom( characterExist )
 const _characterExistAss = check('idCharacter').custom( characterExist )
 const _movieExist = check('idMovie').custom( movieExist);
+const _weightValid = check('weight', 'weight value must be a number').isFloat({ max: 200 });
 
 
 const getAllRequestValidations = [
@@ -23,32 +24,37 @@ const getRequestValidations = [
 ]
 
 const postRequestValidations = [
+    validJWT,
     valueRequired('name'),
     valueRequired('age'),
     valueRequired('history'),
+    valueRequired('weight'),
+    validResult,
+    _weightValid,
     _nameExist,
     validResult,
-    validJWT
 ]
 
 const putRequestValidations = [
+    validJWT,
     valueRequired('id'),
     _characterExist,
     validResult,
-    validJWT
 ]
 
 const deleteRequestValidations = [
+    validJWT,
     valueRequired('id'),
+    validResult,
     _characterExist,
     validResult,
-    validJWT
 ]
 
 const associateRequestValidation = [
     validJWT,
     valueRequired('idCharacter'),
     valueRequired('idMovie'),
+    validResult,
     _characterExistAss,
     _movieExist,
     validResult

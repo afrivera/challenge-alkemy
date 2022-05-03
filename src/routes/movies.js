@@ -23,7 +23,7 @@ router.get('/', getAllRequestValidations, getAllMovies);
 router.get('/:id', getRequestValidations, getMovieById);
 router.post('/', postRequestValidations, createMovie);
 router.put('/:id', putRequestValidations, updateMovie);
-router.delete('/:id(\\d+)', deleteRequestValidations, deleteMovie);
+router.delete('/:id', deleteRequestValidations, deleteMovie);
 
 
 router.get('/associate/:id(\\d+)', getRequestValidations, getByIdWithCharacters);
