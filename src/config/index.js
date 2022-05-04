@@ -30,6 +30,11 @@ module.exports = {
     },
     swagger:{
         path:'/documentation'
+    },
+    azure:{
+        connectionstring: process.env.AZURE_STORAGE_CONNECTION_STRING, 
+        container: process.env.AZURE_CONTAINER,
+        storage: process.env.AZURE_STORAGE_ACCOUNT
     }
 };
 
