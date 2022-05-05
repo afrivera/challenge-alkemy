@@ -14,6 +14,10 @@ const findByEmail = async ( email )=> {
     return await userRepository.findByEmail( email );
 }
 
+const findByName = async ( username )=> {
+    return await userRepository.findByName( username );
+}
+
 const save = async ( user )=> {
     return await userRepository.save( user );
 }
@@ -30,6 +34,7 @@ module.exports = {
     findall,
     findById,
     findByEmail,
+    findByName,
     save,
     update,
     remove

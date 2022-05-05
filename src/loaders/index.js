@@ -13,7 +13,8 @@ const startServer = async()=> {
         require('../models/movie');
         require('../models/gender');
 
-        await db.sync({ alter: false });
+        // await db.sync({ alter: false });
+        await db.sync({ force: false});
         logger.info('Database loaded and connected');
 
 

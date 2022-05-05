@@ -40,9 +40,9 @@ const login = async ( email, password )=> {
 const register = async( user )=> {
     try {
         // validate if email exist
-        const userFound = await userService.findByEmail( user.email);
-        if( userFound){
-            throw new AppError('Email already exist', 401);
+        const [email, username ]= await Promise.all([ userService.findByEmail( user.email), userService.findByName(user.username)]);
+        if( email || username ){
+            throw new AppError('email or username already exist', 401);
         }
         await userService.save( user );
         return 'User registered, you can log In to use API';

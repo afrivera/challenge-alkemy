@@ -22,7 +22,7 @@ const register = async (req = request, res = response, next)=> {
 
         const user = { username, password, email};
 
-        res.status(201).json(new Success( await authService.register( user )))
+        res.status(201).json(new Success( {message: await authService.register( user )}))
         
     } catch (error) {
         next( error );

@@ -18,6 +18,10 @@ class UserRepository {
         return await User.findOne( {where: { email }});
     }
 
+    async findByName( username ){
+        return await User.findOne( {where: { username }});
+    }
+
     async save( user ){
         user.password = await bcrypt.hash( user.password, 10);
         return await User.create( user);
