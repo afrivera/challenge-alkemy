@@ -12,9 +12,7 @@ const nameCharacterExist = async( name= '' )=> {
 }
 
 const characterExist = async ( id = '', { req } )=> {
-    if(!Number.isNaN(id)){
-        throw new AppError(`id must be a number`);
-    }
+    
     const character = await characterService.findById( id );
     if( !character ){
         throw new AppError(`Character with id: ${id} doesn't exist`);
@@ -30,9 +28,7 @@ const titleMovieExist= async( title= '')=>{
 }
 
 const movieExist = async (id = '', { req })=> {
-    // if(!Number.isNaN(id)){
-    //     throw new AppError(`id must be a number`);
-    // }
+    
     const movie = await movieService.findById( id );
     if( !movie ){
         throw new AppError(`movie with id: ${id} doesn't exist`);

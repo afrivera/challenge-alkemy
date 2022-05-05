@@ -6,7 +6,7 @@ const { nameCharacterExist, characterExist, movieExist } = require('../../helper
 // Validations
 const _nameExist = check('name').custom( nameCharacterExist )
 
-const _characterExist = check('id').isNumeric('must be a number').custom( characterExist )
+const _characterExist = check('id', 'id must be a number').isNumeric().custom( characterExist )
 const _characterExistAss = check('idCharacter').custom( characterExist )
 const _movieExist = check('idMovie').custom( movieExist);
 const _weightValid = check('weight', 'weight value must be a number').isFloat({ max: 200 });

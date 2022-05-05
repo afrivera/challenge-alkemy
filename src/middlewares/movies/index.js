@@ -21,7 +21,7 @@ const _genderExist = check('gender').custom(
     }
 )
 
-const _movieExist = check('id', 'must be a number').custom( movieExist );
+const _movieExist = check('id', 'must be a number').isNumeric().custom( movieExist );
 const _movieExistAss = check('idMovie').custom( movieExist );
 const _characterExist = check('idCharacter').custom( characterExist );
 const _calificationValid = check('calification', 'calification value must be between 1 to 5').isFloat({min: 1, max: 5 });

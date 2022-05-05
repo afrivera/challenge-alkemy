@@ -23,10 +23,10 @@ router.get('/', getAllRequestValidations, getAllCharacters);
 router.get('/:id', getRequestValidations, getCharacterById);
 router.post('/', postRequestValidations, createCharacter);
 router.put('/:id', putRequestValidations, updateCharacter);
-router.delete('/:id(\\d+)', deleteRequestValidations, deleteCharacter);
+router.delete('/:id', deleteRequestValidations, deleteCharacter);
 
-router.get('/associate/:id(\\d+)', getRequestValidations, getByIdWithMovies);
-router.put('/associate/:idCharacter(\\d+)/:idMovie', associateRequestValidation, associateMovie);
+router.get('/associate/:id', getRequestValidations, getByIdWithMovies);
+router.put('/associate/:idCharacter/:idMovie', associateRequestValidation, associateMovie);
 
 
 module.exports = router;

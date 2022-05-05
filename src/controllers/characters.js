@@ -73,7 +73,7 @@ const deleteCharacter = async(req= request, res= response, next)=> {
         const { id } = req.params;
         await characterService.remove( id );
 
-        res.json( new Success ( `character with ${id} was remove`) );
+        res.json( new Success ( {message: `character with ${id} was remove`}) );
         
     } catch (error) {
         next( error );

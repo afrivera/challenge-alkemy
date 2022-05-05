@@ -20,14 +20,14 @@ const {
 const router = Router();
 
 router.get('/', getAllRequestValidations, getAllMovies);
-router.get('/:id(\\d+)', getRequestValidations, getMovieById);
+router.get('/:id', getRequestValidations, getMovieById);
 router.post('/', postRequestValidations, createMovie);
 router.put('/:id', putRequestValidations, updateMovie);
 router.delete('/:id', deleteRequestValidations, deleteMovie);
 
 
-router.get('/associate/:id(\\d+)', getRequestValidations, getByIdWithCharacters);
-router.put('/associate/:idMovie(\\d+)/:idCharacter(\\d+)', associateRequestValidation, associateCharacter);
+router.get('/associate/:id', getRequestValidations, getByIdWithCharacters);
+router.put('/associate/:idMovie/:idCharacter', associateRequestValidation, associateCharacter);
 
 
 module.exports = router;
